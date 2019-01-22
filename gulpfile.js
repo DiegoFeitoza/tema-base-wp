@@ -26,7 +26,7 @@ gulp.task('browserSync', function() {
     //initialize browsersync
     browserSync.init(files, {
     //browsersync with a php server
-    proxy: "altodavila.dev.dev",
+    proxy: "localhost",
     notify: false
     });
 });
@@ -47,7 +47,14 @@ gulp.task('sass', function() {
     }))
 });
 
-gulp.task('watch', ['browserSync', 'concatJs', 'sass'], function(){
+gulp.task('attLibs',function(){
+  gulp.src('./node_modules/bootstrap/**/**')
+  .pipe(gulp.dest('./wp-content/themes/cartello/lib/bootstrap'));
+  gulp.src('./node_modules/jquery/**/**')
+  .pipe(gulp.dest('./wp-content/themes/cartello/lib/jquery'));
+})
+
+gulp.task('watch', ['browserSync', 'concatJs', 'sass','attLibs'], function(){
   gulp.watch('./wp-content/themes/cartello/**/*.scss', ['sass']);
   // Other watchers
 })
